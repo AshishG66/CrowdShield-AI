@@ -39,6 +39,9 @@ import {
   Tooltip
 } from "recharts";
 
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export default function PredictionPage() {
   const { syncPredictionLocal } = useEventLifecycle();
   const [isPredicting, setIsPredicting] = useState(false);
@@ -66,7 +69,7 @@ export default function PredictionPage() {
       try {
         setLoadingEvent(true);
         // 1. Fetch Events
-        const res = await fetch("http://localhost:5000/api/events");
+        const res = await fetch(`${API_URL}/api/events`);
         const json = await res.json();
         
         if (json.success && json.data && json.data.length > 0) {
@@ -75,7 +78,7 @@ export default function PredictionPage() {
           setCrowdCount(json.data[0].currentOccupancy || 38000);
         } else {
           // 2. Seeding required - create a mock Venue and Event
-          const venueRes = await fetch("http://localhost:5000/api/venues", {
+          const venueRes = await fetch(`${API_URL}/api/venues`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -95,7 +98,7 @@ export default function PredictionPage() {
           const venueId = venueJson.data?._id;
 
           if (venueId) {
-            const eventRes = await fetch("http://localhost:5000/api/events", {
+            const eventRes = await fetch(`${API_URL}/api/events`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
@@ -215,7 +218,7 @@ export default function PredictionPage() {
       setCascadeSteps([]);
 
       // Trigger the prediction POST request
-      const response = await fetch("http://localhost:5000/api/predictions/trigger", {
+      const response = await fetch(`${API_URL}/api/predictions/trigger`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
