@@ -1,0 +1,30 @@
+# Dependency directories
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Build outputs
+.next/
+dist/
+build/
+
+# Python caching & environments
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ML models
+model.pkl
+
+# Logs
+*.log
+
+# Editor configs
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db

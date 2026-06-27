@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrowdShield AI - API Reference Docs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --panel-bg: rgba(17, 24, 39, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-color: #8b5cf6;
+      --accent-glow: rgba(139, 92, 246, 0.15);
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --danger-color: #ef4444;
+      --info-color: #3b82f6;
+      --sidebar-width: 280px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar Styling */
+    aside {
+      width: var(--sidebar-width);
+      background-color: rgba(10, 15, 30, 0.95);
+      border-right: 1px solid var(--border-color);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent-color), #3b82f6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      background: linear-gradient(to right, #fff, #9ca3af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    .nav-item a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item a:hover, .nav-item.active a {
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-left: 3px solid var(--accent-color);
+      padding-left: calc(0.75rem - 3px);
+    }
+
+    /* Main Content Area */
+    main {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 3rem 4rem;
+      max-width: 1200px;
+    }
+
+    header {
+      margin-bottom: 4rem;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      top: -100px;
+      right: 0;
+      z-index: -1;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-description {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    section {
+      margin-bottom: 5rem;
+      scroll-margin-top: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Endpoint Card Styling */
+    .endpoint-card {
+      background-color: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: border-color 0.2s ease;
+    }
+
+    .endpoint-card:hover {
+      border-color: rgba(139, 92, 246, 0.3);
+    }
+
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge-get {
+      background-color: rgba(59, 130, 246, 0.15);
+      color: var(--info-color);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-post {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: var(--success-color);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-put {
+      background-color: rgba(245, 158, 11, 0.15);
+      color: var(--warning-color);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-delete {
+      background-color: rgba(239, 68, 68, 0.15);
+      color: var(--danger-color);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .endpoint-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .endpoint-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Grid Layout for details and code block */
+    .endpoint-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .endpoint-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .param-table-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .param-table th, .param-table td {
+      padding: 0.6rem 0.75rem;
+      text-align: left;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .param-table th {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .param-name {
+      font-family: 'JetBrains Mono', monospace;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .param-type {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-color);
+    }
+
+    .param-req {
+      color: var(--danger-color);
+      font-weight: 500;
+    }
+
+    /* Code Container block styling */
+    .code-container {
+      background-color: rgba(5, 8, 15, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .code-header {
+      background-color: rgba(15, 23, 42, 0.6);
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+      font-family: 'JetBrains Mono', monospace;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    pre {
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      color: #e2e8f0;
+    }
+
+    .json-key { color: #f472b6; }
+    .json-string { color: #34d399; }
+    .json-number { color: #fb7185; }
+    .json-boolean { color: #38bdf8; }
+  </style>
+</head>
+<body>
+
+  <aside>
+    <div class="logo-container">
+      <div class="logo-icon">C</div>
+      <div class="logo-text">CrowdShield AI</div>
+    </div>
+    
+    <nav>
+      <div class="nav-section-title">System API</div>
+      <ul class="nav-list">
+        <li class="nav-item active"><a href="#health">Health Check</a></li>
+      </ul>
+
+      <div class="nav-section-title">Venues API</div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#get-venues">List All Venues</a></li>
+        <li class="nav-item"><a href="#get-venue-id">Get Venue by ID</a></li>
+        <li class="nav-item"><a href="#create-venue">Create New Venue</a></li>
+        <li class="nav-item"><a href="#update-venue">Update Venue</a></li>
+        <li class="nav-item"><a href="#delete-venue">Delete Venue</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+    <header>
+      <h1>CrowdShield API Reference</h1>
+      <p class="header-description">Welcome to the CrowdShield AI developer API docs. Integrate and manage telemetry readings, real-time alert dispatch systems, security logs, and venue metrics.</p>
+    </header>
+
+    <!-- System APIs Section -->
+    <section id="health">
+      <h2 class="section-title">System APIs</h2>
+
+      <div class="endpoint-card">
+        <div class="endpoint-header">
+          <span class="badge badge-get">GET</span>
+          <span class="endpoint-path">/api/health</span>
+        </div>
+        <div class="endpoint-desc">Retrieves the active health status, software build version, and timestamp of the backend service instance.</div>
+        
+        <div class="endpoint-body">
+          <div>
+            <div class="param-table-title">Query Parameters</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">None required.</p>
+          </div>
+          
+          <div class="code-container">
+            <div class="code-header">Response (200 OK)</div>
+            <pre><code>{
+  <span class="json-key">"success"</span>: <span class="json-boolean">true</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"CrowdShield AI Backend Running"</span>,
+  <span class="json-key">"version"</span>: <span class="json-string">"1.0.0"</span>,
+  <span class="json-key">"timestamp"</span>: <span class="json-string">"2026-06-27T04:12:24.370Z"</span>
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venues APIs Section -->
+    <section id="get-venues">
+      <h2 class="section-title">Venues APIs</h2>
+
+      <!-- List Venues -->
+      <div class="endpoint-card">
+        <div class="endpoint-header">
+          <span class="badge badge-get">GET</span>
+          <span class="endpoint-path">/api/venues</span>
+        </div>
+        <div class="endpoint-desc">Retrieves the complete list of registered venues, containing geographic coordinates, gate statistics, and real-time active telemetry metrics.</div>
+        
+        <div class="endpoint-body">
+          <div>
+            <div class="param-table-title">Query Parameters</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">None required.</p>
+          </div>
+          
+          <div class="code-container">
+            <div class="code-header">Response (200 OK)</div>
+            <pre><code>{
+  <span class="json-key">"success"</span>: <span class="json-boolean">true</span>,
+  <span class="json-key">"data"</span>: [
+    {
+      <span class="json-key">"_id"</span>: <span class="json-string">"60d5ec49f3183c26883e002a"</span>,
+      <span class="json-key">"name"</span>: <span class="json-string">"M. Chinnaswamy Stadium"</span>,
+      <span class="json-key">"type"</span>: <span class="json-string">"Stadium"</span>,
+      <span class="json-key">"city"</span>: <span class="json-string">"Bengaluru"</span>,
+      <span class="json-key">"capacity"</span>: <span class="json-number">45000</span>,
+      <span class="json-key">"status"</span>: <span class="json-string">"Active"</span>,
+      <span class="json-key">"sectors"</span>: []
+    }
+  ]
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Get Venue by ID -->
+      <div id="get-venue-id" class="endpoint-card">
+        <div class="endpoint-header">
+          <span class="badge badge-get">GET</span>
+          <span class="endpoint-path">/api/venues/:id</span>
+        </div>
+        <div class="endpoint-desc">Retrieves the full profile details of a single venue using its unique database record identifier.</div>
+        
+        <div class="endpoint-body">
+          <div>
+            <div class="param-table-title">Path Parameters</div>
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Param</th>
+                  <th>Type</th>
+                  <th>Required</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">id</td>
+                  <td class="param-type">string</td>
+                  <td class="param-req">Yes</td>
+                  <td>The Mongo ObjectId identifier.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="code-container">
+            <div class="code-header">Response (200 OK)</div>
+            <pre><code>{
+  <span class="json-key">"success"</span>: <span class="json-boolean">true</span>,
+  <span class="json-key">"data"</span>: {
+    <span class="json-key">"_id"</span>: <span class="json-string">"60d5ec49f3183c26883e002a"</span>,
+    <span class="json-key">"name"</span>: <span class="json-string">"M. Chinnaswamy Stadium"</span>,
+    <span class="json-key">"type"</span>: <span class="json-string">"Stadium"</span>,
+    <span class="json-key">"capacity"</span>: <span class="json-number">45000</span>,
+    <span class="json-key">"latitude"</span>: <span class="json-number">12.9784</span>,
+    <span class="json-key">"longitude"</span>: <span class="json-number">77.5994</span>,
+    <span class="json-key">"entryGates"</span>: <span class="json-number">8</span>,
+    <span class="json-key">"exitGates"</span>: <span class="json-number">8</span>,
+    <span class="json-key">"emergencyExits"</span>: <span class="json-number">4</span>,
+    <span class="json-key">"status"</span>: <span class="json-string">"Active"</span>
+  }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create Venue -->
+      <div id="create-venue" class="endpoint-card">
+        <div class="endpoint-header">
+          <span class="badge badge-post">POST</span>
+          <span class="endpoint-path">/api/venues</span>
+        </div>
+        <div class="endpoint-desc">Registers a new venue profile in the CrowdShield database. Input payload is validated strictly by Zod request middleware schemas.</div>
+        
+        <div class="endpoint-body">
+          <div>
+            <div class="param-table-title">Request Body Fields</div>
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Type</th>
+                  <th>Req</th>
+                  <th>Desc</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">name</td>
+                  <td class="param-type">string</td>
+                  <td class="param-req">Yes</td>
+                  <td>Unique name.</td>
+                </tr>
+                <tr>
+                  <td class="param-name">type</td>
+                  <td class="param-type">string</td>
+                  <td>No</td>
+                  <td>Default: "Stadium".</td>
+                </tr>
+                <tr>
+                  <td class="param-name">city</td>
+                  <td class="param-type">string</td>
+                  <td class="param-req">Yes</td>
+                  <td>Location city.</td>
+                </tr>
+                <tr>
+                  <td class="param-name">state</td>
+                  <td class="param-type">string</td>
+                  <td class="param-req">Yes</td>
+                  <td>Location state.</td>
+                </tr>
+                <tr>
+                  <td class="param-name">capacity</td>
+                  <td class="param-type">number</td>
+                  <td class="param-req">Yes</td>
+                  <td>Max capacity limit.</td>
+                </tr>
+                <tr>
+                  <td class="param-name">latitude</td>
+                  <td class="param-type">number</td>
+                  <td class="param-req">Yes</td>
+                  <td>Map coordinate.</td>
+                </tr>
+                <tr>
+                  <td class="param-name">longitude</td>
+                  <td class="param-type">number</td>
+                  <td class="param-req">Yes</td>
+                  <td>Map coordinate.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="code-container">
+            <div class="code-header">Response (201 Created)</div>
+            <pre><code>{
+  <span class="json-key">"success"</span>: <span class="json-boolean">true</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Venue created successfully"</span>,
+  <span class="json-key">"data"</span>: {
+    <span class="json-key">"_id"</span>: <span class="json-string">"60d5ec49f3183c26883e002a"</span>,
+    <span class="json-key">"name"</span>: <span class="json-string">"M. Chinnaswamy Stadium"</span>,
+    <span class="json-key">"capacity"</span>: <span class="json-number">45000</span>
+  }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Update Venue -->
+      <div id="update-venue" class="endpoint-card">
+        <div class="endpoint-header">
+          <span class="badge badge-put">PUT</span>
+          <span class="endpoint-path">/api/venues/:id</span>
+        </div>
+        <div class="endpoint-desc">Modifies an existing venue profile using field-level parameters passed in request bodies. Object keys not supplied remain unchanged.</div>
+        
+        <div class="endpoint-body">
+          <div>
+            <div class="param-table-title">Path Parameters</div>
+            <table class="param-table" style="margin-bottom: 1rem;">
+              <thead>
+                <tr>
+                  <th>Param</th>
+                  <th>Type</th>
+                  <th>Req</th>
+                  <th>Desc</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">id</td>
+                  <td class="param-type">string</td>
+                  <td class="param-req">Yes</td>
+                  <td>The Mongo ObjectId.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="code-container">
+            <div class="code-header">Response (200 OK)</div>
+            <pre><code>{
+  <span class="json-key">"success"</span>: <span class="json-boolean">true</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Venue updated successfully"</span>,
+  <span class="json-key">"data"</span>: {
+    <span class="json-key">"_id"</span>: <span class="json-string">"60d5ec49f3183c26883e002a"</span>,
+    <span class="json-key">"name"</span>: <span class="json-string">"M. Chinnaswamy Stadium"</span>,
+    <span class="json-key">"status"</span>: <span class="json-string">"Inactive"</span>
+  }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Venue -->
+      <div id="delete-venue" class="endpoint-card">
+        <div class="endpoint-header">
+          <span class="badge badge-delete">DELETE</span>
+          <span class="endpoint-path">/api/venues/:id</span>
+        </div>
+        <div class="endpoint-desc">Permanently removes a venue profile registry from the database using its unique identifier.</div>
+        
+        <div class="endpoint-body">
+          <div>
+            <div class="param-table-title">Path Parameters</div>
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Param</th>
+                  <th>Type</th>
+                  <th>Req</th>
+                  <th>Desc</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="param-name">id</td>
+                  <td class="param-type">string</td>
+                  <td class="param-req">Yes</td>
+                  <td>The Mongo ObjectId.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="code-container">
+            <div class="code-header">Response (200 OK)</div>
+            <pre><code>{
+  <span class="json-key">"success"</span>: <span class="json-boolean">true</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Venue deleted successfully"</span>
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Smooth scrolling active state logic
+    const navItems = document.querySelectorAll('.nav-item');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      const sections = document.querySelectorAll('section, div[id]');
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 150)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        const link = item.querySelector('a');
+        if (link && link.getAttribute('href').substring(1) === current) {
+          item.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
