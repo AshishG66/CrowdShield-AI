@@ -24,20 +24,21 @@ CrowdShield AI is a state-of-the-art, intelligent real-time crowd safety managem
 
 ## 🏗️ System Architecture
 
-CrowdShield AI is built as a highly decoupled microservices architecture designed for low latency, secure data transit, and high availability:
-
 ```mermaid
-graph TD
-    A[Vercel Frontend - Next.js/React] <-->|HTTPS / WebSockets| B[Render Backend - Express/Node.js]
-    B <-->|Mongoose ODM| C[(MongoDB Atlas - Cloud Database)]
-    B <-->|REST API JSON| D[Render AI Service - FastAPI/Python]
-    D -->|Loads Pipeline| E[Scikit-learn Model - RandomForest]
+graph LR
+A[User Browser] --> B[Next.js Frontend (Vercel)]
+B --> C[Node.js Backend (Render)]
+C --> D[FastAPI AI Service (Render)]
+C --> E[MongoDB Atlas]
+C --> F[Twilio SMS & Voice]
 ```
 
-1.  **Vercel Frontend (Next.js/TS)**: Serves as the real-time command dashboard. It displays live telemetry status, receives instant WebSocket alerts, showcases analytical graphs, and hosts the operator's conversational AI assistant.
-2.  **Render Backend (Express/TS)**: Coordinates business logic, tracks state history, registers manual & AI-detected incidents, manages Twilio SMS alerting, and connects to the database.
-3.  **FastAPI AI Service (Python/FastAPI)**: Serves real-time ML inference. When provided with venue occupancy, entry/exit rates, weather, and logistics parameters, it passes the telemetry through a trained Random Forest Classifier pipeline, yielding risk classifications and emergency-response mitigation protocols.
-4.  **MongoDB Atlas**: The scalable, persistent layer tracking historical safety configurations, active incident reports, audit logs, and venue telemetry profiles.
+1. **User Browser**: The entry point for control room operators to interact with the platform.
+2. **Next.js Frontend (Vercel)**: Serves as the web-based visual client showing real-time logs, maps, and analytics.
+3. **Node.js Backend (Render)**: Processes API requests, synchronizes client state using WebSockets/REST, and manages integrations.
+4. **FastAPI AI Service (Render)**: Serves as the low-latency machine learning inference gateway predicting crowd safety risk indexes.
+5. **MongoDB Atlas**: Serves as the cloud database repository keeping configurations and incident histories.
+6. **Twilio SMS & Voice**: Triggers out-of-band alerts to mobile devices of responders when critical crowd densities are breached.
 
 ---
 
