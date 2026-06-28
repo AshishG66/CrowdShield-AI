@@ -18,13 +18,11 @@ CrowdShield AI is a state-of-the-art, intelligent real-time crowd safety managem
 
 ---
 
-## 🔗 Live Demo Links
+## 🚀 Live Demo
 
-Experience the platform live across all deployment stages:
-
-*   **🌐 Frontend Application (Vercel):** [https://crowd-shield-ai-eight.vercel.app](https://crowd-shield-ai-eight.vercel.app)
-*   **⚙️ Backend API Documentation (Render / Swagger):** [https://crowdshield-backend-zvnh.onrender.com/api/docs](https://crowdshield-backend-zvnh.onrender.com/api/docs)
-*   **🧠 AI Service API Reference (Render / Redoc/Swagger):** [https://crowdshield-ai-7kok.onrender.com/docs](https://crowdshield-ai-7kok.onrender.com/docs)
+- 🌐 **Frontend:** [https://crowd-shield-ai-eight.vercel.app](https://crowd-shield-ai-eight.vercel.app)
+- 📘 **Backend API:** [https://crowdshield-backend-zvnh.onrender.com/api/docs](https://crowdshield-backend-zvnh.onrender.com/api/docs)
+- 🤖 **AI Service:** [https://crowdshield-ai-7kok.onrender.com/docs](https://crowdshield-ai-7kok.onrender.com/docs)
 
 ---
 
