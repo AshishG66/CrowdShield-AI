@@ -1,11 +1,5 @@
 # 🛡️ CrowdShield AI
 
-CrowdShield AI is a state-of-the-art, intelligent real-time crowd safety management and security command center platform. By connecting real-time video telemetry analysis with predictive ML flow models, the platform automates crowd density warnings, visualizes threat vectors, predicts risk levels, and generates actionable, context-aware dispatch instructions to prevent critical bottlenecks and safety incidents in crowded venues.
-
----
-
-### 🚀 Tech Badges
-   
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
@@ -13,8 +7,10 @@ CrowdShield AI is a state-of-the-art, intelligent real-time crowd safety managem
 [![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/cloud/atlas)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/)
 [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+[![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/)
+
+CrowdShield AI is a state-of-the-art, intelligent real-time crowd safety management and security command center platform. By connecting real-time video telemetry analysis with predictive ML flow models, the platform automates crowd density warnings, visualizes threat vectors, predicts risk levels, and generates actionable, context-aware dispatch instructions to prevent critical bottlenecks and safety incidents in crowded venues.
 
 ---
 
