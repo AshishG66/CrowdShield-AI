@@ -57,12 +57,20 @@ CrowdShield AI is a state-of-the-art, intelligent real-time crowd safety managem
 ## 🏗️ System Architecture
 
 ```mermaid
-graph LR
-A[User Browser] --> B[Next.js Frontend (Vercel)]
-B --> C[Node.js Backend (Render)]
-C --> D[FastAPI AI Service (Render)]
-C --> E[MongoDB Atlas]
-C --> F[Twilio SMS & Voice]
+flowchart LR
+
+A["👤 User Browser"]
+B["🌐 Next.js Frontend (Vercel)"]
+C["⚙️ Node.js Backend (Render)"]
+D["🤖 FastAPI AI Service"]
+E["🍃 MongoDB Atlas"]
+F["📱 Twilio SMS & Voice"]
+
+A --> B
+B --> C
+C --> D
+C --> E
+C --> F
 ```
 
 1. **User Browser**: The entry point for control room operators to interact with the platform.
