@@ -22,6 +22,38 @@ CrowdShield AI is a state-of-the-art, intelligent real-time crowd safety managem
 
 ---
 
+## 📸 Project Screenshots
+
+### 🏠 Home
+
+![Home](screenshots/home.png)
+
+### 📊 Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### 🤖 AI Prediction
+
+![Prediction](screenshots/prediction.png)
+
+### 📈 Analytics
+
+![Analytics](screenshots/analytics.png)
+
+### 🧠 AI Assistant
+
+![AI Assistant](screenshots/ai-assistant.png)
+
+### ⚙️ Settings
+
+![Settings](screenshots/settings.png)
+
+### 🏟️ Venue Management
+
+![Venues](screenshots/venues.png)
+
+---
+
 ## 🏗️ System Architecture
 
 ```mermaid
@@ -63,31 +95,6 @@ C --> F[Twilio SMS & Voice]
 | **Database** | MongoDB Atlas, Mongoose ODM | Cloud document storage for incident records, user logs, and venue states |
 | **AI & ML Engine** | FastAPI, Python 3, Scikit-learn, Pandas, NumPy | Low-overhead predictive inference API running a trained Random Forest model |
 | **Cloud Hosting** | Vercel (Frontend), Render (Backend & AI), MongoDB Atlas | Highly available serverless and containerized deployment workflow |
-
----
-
-## 🖼️ Project Screenshots
-
-### 🏠 Landing Home Page
-![Landing Home Page](screenshots/home.png)
-
-### 📊 Command Hub Dashboard
-![Command Hub Dashboard](screenshots/dashboard.png)
-
-### 🔮 AI Prediction Interface
-![AI Prediction Interface](screenshots/prediction.png)
-
-### 📈 Crowd Analytics Dashboard
-![Crowd Analytics Dashboard](screenshots/analytics.png)
-
-### 💬 Safety Dispatch Copilot
-![Safety Dispatch Copilot](screenshots/ai-assistant.png)
-
-### ⚙️ Command Configuration Panel
-![Command Configuration Panel](screenshots/settings.png)
-
-### 🏟️ Enterprise Venue Directory
-![Enterprise Venue Directory](screenshots/venues.png)
 
 ---
 
